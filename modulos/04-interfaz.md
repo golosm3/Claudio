@@ -75,6 +75,18 @@ las de Claude Code como ejemplo.
 | Remote Control | Si la versión del CLI lo admite, botón para activarlo en la conversación |
 | Kit disponible | Al arrancar y una vez al día, consulta la última versión publicada del repositorio del kit (ver `actualizar.md`). Si es mayor que la instalada, muestra un botón «kit vX.Y disponible» que pide al asistente ejecutar la skill `actualizar`. Nunca aplica nada solo |
 
+**Interfaz heredada (v2.x) con actualización por servidor**: las interfaces de la serie 2 traían dos
+avisos que leían de un servidor configurado (`<servidor>/…/version.json` para actualizarse a sí mismas y
+`…/kit/kit.json` para el kit). En la v3 la interfaz no se distribuye y el kit vive en el repositorio, así
+que al instalar o actualizar sobre una interfaz así:
+- el aviso del kit pasa a consultar el repositorio, como dice la fila «Kit disponible», y su botón pide
+  la skill `actualizar`; ya no descarga nada del servidor;
+- la autoactualización de la propia interfaz desde el servidor se desactiva (botón oculto, ajuste
+  vacío), salvo que el usuario diga que él mismo publica en ese servidor; en ese caso se conserva, pero
+  separada del aviso del kit;
+- criterio: con el ajuste del servidor vacío o sin red local, la interfaz no muestra ningún aviso de
+  ese servidor, y el aviso del kit compara la marca instalada con la última etiqueta del repositorio.
+
 **Nombre**: todo lo visible (título, marca, saludo, lanzadores, notificaciones) lleva el nombre del
 asistente, nunca el del programa ni el del modelo. En una instalación nueva, la carpeta, el servicio y el comando se llaman
 `<nombre>-ui`, en minúsculas y sin acentos. El nombre vive en la configuración de la interfaz, no

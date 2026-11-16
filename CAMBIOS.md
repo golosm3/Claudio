@@ -1,5 +1,14 @@
 # CAMBIOS
 
+## v3.1
+
+- **Interfaces heredadas de v2.x** (`modulos/04-interfaz.md`, `fases/00-detectar.md`): al pasar a la v3,
+  el aviso del kit de una interfaz v2.x seguía mirando el servidor antiguo y el botón «update disponible»
+  llevaba a él. Ahora la Fase 0 marca esos canales como «a adaptar» y M4 dice cómo: aviso del kit contra
+  el repositorio y autoactualización por servidor desactivada (salvo que el usuario publique en él).
+  Quien ya instaló la v3.0 sobre una v2.x: «busca actualizaciones del kit» y aplica M4.
+- **Plantilla**: solo cambia la marca a `v3.1`.
+
 ## v3.0
 
 **Cambio de formato.** El kit deja de ser un único prompt con código de referencia adjunto y pasa a ser un

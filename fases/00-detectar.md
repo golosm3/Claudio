@@ -38,7 +38,11 @@
      versión es anterior a la de `plantillas/instrucciones.md` (p. ej. `v2.7 ·` frente a `v3.0 ·`), las
      reglas y secciones nuevas de la plantilla cuentan como piezas que faltan (fusión de la Fase 3).
      Las instalaciones v2.x traían código de referencia ya copiado (interfaz, hooks, scripts):
-     es trabajo instalado y se conserva; la v3 no lo sustituye por nada.
+     es trabajo instalado y se conserva; la v3 no lo sustituye por nada. **Excepción: los canales de
+     actualización.** Si una interfaz u otra pieza heredada busca versiones nuevas en un servidor
+     propio (ajuste de servidor de actualizaciones, `version.json`, `kit.json`, carpeta `uiupdate`),
+     márcala en el resumen como «a adaptar»: en la Fase 6 se aplica lo que dice M4 para interfaces
+     heredadas.
 4. Enséñame un resumen corto (una tabla: pieza, estado, qué harás con ella; incluye el asistente y
    su adaptador, las capacidades que quedan degradadas, y la carpeta de proyectos detectada y con
    qué pista) antes de seguir.
