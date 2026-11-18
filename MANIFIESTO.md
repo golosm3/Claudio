@@ -1,4 +1,4 @@
-# MANIFIESTO — Claudio v3.1
+# MANIFIESTO — Claudio v3.2
 
 Una fila por apartado. La columna **versión** sube cuando cambia el contenido de ese archivo: una
 actualización (`actualizar.md`) compara esta tabla con la de la versión instalada y aplica solo
@@ -7,7 +7,7 @@ del asistente instalado.
 
 | Apartado | Archivo | Versión | Tipo |
 |---|---|---|---|
-| Entrada | `promptinicial.md` | 3.0 | obligatorio |
+| Entrada | `promptinicial.md` | 3.2 | obligatorio |
 | Adaptadores: términos y capacidades | `adaptadores/README.md` | 3.0 | obligatorio |
 | Adaptador Claude Code (recomendado, probado) | `adaptadores/claude-code.md` | 3.0 | adaptador |
 | Adaptador Codex CLI (sin probar) | `adaptadores/codex.md` | 3.0 | adaptador |
@@ -17,13 +17,15 @@ del asistente instalado.
 | Entrevista | `fases/01-entrevista.md` | 3.0 | obligatorio |
 | Copia de seguridad | `fases/02-copia-seguridad.md` | 3.0 | obligatorio |
 | Instrucciones globales | `fases/03-instrucciones.md` | 3.0 | obligatorio |
-| Plantilla de instrucciones | `plantillas/instrucciones.md` | 3.1 | obligatorio |
+| Plantilla de instrucciones | `plantillas/instrucciones.md` | 3.2 | obligatorio |
 | Memoria, agentes y skills | `fases/04-memoria-agentes-skills.md` | 3.0 | obligatorio |
 | Ajustes, línea de estado y modelo | `fases/05-ajustes.md` | 3.0 | obligatorio |
 | Módulos, ejecutable estable, accesos | `fases/06-modulos.md` | 3.0 | obligatorio |
 | Verificación | `fases/07-verificacion.md` | 3.0 | obligatorio |
-| Informe | `fases/08-informe.md` | 3.0 | obligatorio |
-| Actualizar desde el repositorio | `actualizar.md` | 3.0 | obligatorio |
+| Informe | `fases/08-informe.md` | 3.2 | obligatorio |
+| Informe de retorno (se ofrece, opcional para el usuario) | `fases/09-retorno.md` | 3.2 | obligatorio |
+| Plantilla del informe de retorno | `plantillas/retorno.md` | 3.2 | obligatorio |
+| Actualizar desde el repositorio | `actualizar.md` | 3.2 | obligatorio |
 | M1 Elevación gráfica y red de seguridad | `modulos/01-elevacion-seguridad.md` | 3.0 | opcional |
 | M2 Navegador automatizable | `modulos/02-navegador.md` | 3.0 | opcional |
 | M3 Personalidades auxiliares | `modulos/03-personalidades.md` | 3.0 | opcional |

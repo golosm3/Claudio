@@ -59,6 +59,9 @@ apartados afectados**:
 5. Actualiza `<CONFIG>/instalacion-claudio.md` (versión y evidencia por apartado), la marca de
    `<INSTRUCCIONES>` y guarda el `MANIFIESTO.md` nuevo en `<CONFIG>/kit/<etiqueta>/`.
 6. Si algo estaba corriendo (interfaz, servicios), debe seguir corriendo al terminar.
+7. Ofrece el informe de retorno de `fases/09-retorno.md` (de la versión descargada), de tipo
+   `actualizacion`: incluye qué apartados se aplicaron y cuáles no, y lo que este sistema tiene que
+   podría interesar al kit.
 
 ## Criterios de aceptación
 

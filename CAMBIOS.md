@@ -1,5 +1,16 @@
 # CAMBIOS
 
+## v3.2
+
+- **Informe de retorno** (`fases/09-retorno.md`, `plantillas/retorno.md`, nuevos): al terminar una
+  instalación o una actualización se ofrece crear un `.md` con el sistema (SO, máquina, asistente,
+  modelos), el estado de cada fase y módulo, los problemas que el kit no tenía previstos con el cambio
+  propuesto y, al actualizar, lo aplicado y lo no aplicado y lo que el sistema tiene que podría servir al
+  kit. Se anonimiza, el usuario lo revisa entero y puede enviarlo como propuesta (pull request) a
+  `aportaciones/`, o como incidencia si no usa `gh`.
+- `actualizar.md`: paso 7, ofrece el informe de retorno.
+- `promptinicial.md`: fase 9 en la tabla; `fases/08-informe.md` remite a ella. Plantilla: marca `v3.2`.
+
 ## v3.1
 
 - **Interfaces heredadas de v2.x** (`modulos/04-interfaz.md`, `fases/00-detectar.md`): al pasar a la v3,

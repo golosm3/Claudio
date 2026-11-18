@@ -1,4 +1,4 @@
-# promptinicial.md — Claudio v3.0
+# promptinicial.md — Claudio v3.2
 
 Punto de entrada. Abre tu asistente de terminal en la carpeta donde está este archivo y dile:
 
@@ -67,6 +67,7 @@ Si al empezar ya existe y es de una instalación a medias, ofrece continuarla.
 | 6 | `fases/06-modulos.md` | Elegir e instalar módulos; ejecutable estable y accesos directos |
 | 7 | `fases/07-verificacion.md` | Verificación real |
 | 8 | `fases/08-informe.md` | Informe final |
+| 9 | `fases/09-retorno.md` | Informe de retorno para mejorar el kit (opcional, se ofrece) |
 
 Actualizaciones posteriores desde el repositorio: `actualizar.md` (lo instala la fase 4 como
 skill; no hace falta leerlo en una instalación).

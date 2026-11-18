@@ -37,12 +37,21 @@ las actualizaciones llegan de aquí.
 |---|---|
 | `promptinicial.md` | Punto de entrada |
 | `MANIFIESTO.md` | Apartados, versión de cada uno y si es obligatorio |
-| `fases/` | Fases 0-8 de la instalación |
+| `fases/` | Fases 0-9 de la instalación |
 | `adaptadores/` | Traducción de cada asistente de terminal (rutas, formatos, capacidades) |
 | `plantillas/instrucciones.md` | Plantilla de las instrucciones permanentes |
+| `plantillas/retorno.md` | Plantilla del informe de retorno |
+| `aportaciones/` | Informes de retorno enviados por los usuarios |
 | `modulos/` | Módulos opcionales (M1-M8) |
 | `actualizar.md` | Flujo de actualización desde este repositorio |
 | `CAMBIOS.md` | Cambios por versión |
+
+## Contribuir
+
+Al terminar una instalación o actualización, el asistente ofrece crear un informe de retorno: el
+sistema donde se instaló, lo que falló o el kit no tenía previsto y, al actualizar, lo que tu sistema
+tiene y podría servir a otros. Se anonimiza, lo revisas entero y, si quieres, se envía como propuesta a
+`aportaciones/` (necesita cuenta de GitHub). Nada sale sin tu confirmación.
 
 ## Requisitos
 

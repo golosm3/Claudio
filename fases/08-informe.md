@@ -10,3 +10,5 @@ En pocas líneas:
 - qué módulos se instalaron y qué quedó sin verificar (por ejemplo, lo que requiere
   reiniciar la sesión o una comprobación visual mía);
 - una primera tarea pequeña que me sugieras para empezar a usarlo.
+
+Después, la Fase 9 (informe de retorno), que solo se ofrece.
