@@ -11,7 +11,7 @@ detects there: OS, hardware, runtimes and what you already have installed.
 
 What you end up with:
 
-| | |
+| Feature | What you get |
 |---|---|
 | **Persistent memory** | A plain-Markdown vault (Obsidian-style links) of recipes, solved errors, project context and how to brief each subagent. It grows with use. |
 | **Orchestration** | The main session decides and integrates; scoped subagents (explorer, implementer, verifier, agent architect) do sweeps and bounded work. |
@@ -30,15 +30,11 @@ What you end up with:
   published tags.
 
 ```mermaid
-flowchart LR
-    K[Claudio kit<br/>Markdown specs] -->|"Read promptinicial.md"| A[Your terminal assistant]
-    A --> D[0 · Detect machine]
-    D --> I[1 · Interview]
-    I --> B[2 · Verified backup]
-    B --> C[3-5 · Instructions, memory,<br/>agents, skills, settings]
-    C --> M[6 · Optional modules]
-    M --> V[7 · Real verification]
-    V --> R[8 · Report]
+flowchart TD
+    K[Claudio kit: Markdown specs] -->|"Read promptinicial.md"| A[Your terminal assistant]
+    A --> D[0 · Detect machine] --> I[1 · Interview] --> B[2 · Verified backup]
+    B --> C[3-5 · Instructions, memory, agents, skills, settings]
+    C --> M[6 · Optional modules] --> V[7 · Real verification] --> R[8 · Report]
     R -.optional.-> F[9 · Anonymized feedback PR]
     F -.improves.-> K
 ```
