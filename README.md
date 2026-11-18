@@ -1,65 +1,101 @@
 # Claudio
 
-Kit para convertir un asistente de terminal recién instalado en un **asistente orquestador personal**. El
-asistente vive en tu máquina, tiene memoria que aprende con el uso, delega en subagentes y se crea sus
-propias herramientas.
+**Turn a freshly installed terminal AI assistant into a personal orchestrator that lives on your
+machine, remembers, delegates and builds its own tools.**
 
-**No contiene código.** Son especificaciones en Markdown: qué construir, por qué y cómo se comprueba.
-Tu asistente escribe la implementación adaptada a tu máquina.
+[Español](README.es.md)
 
-**Recomendado: Claude Code**, el de referencia y el único probado de principio a fin. También hay
-adaptadores para Codex CLI, Gemini CLI y opencode (sin probar), y un procedimiento genérico para
-cualquier otro: lo que el programa no permita se degrada de forma visible.
+Claudio is not a chatbot, a wrapper or a prompt pack. It is a **specification kit**: plain Markdown that
+your own assistant (Claude Code recommended) reads and *implements on your machine*, adapted to what it
+detects there: OS, hardware, runtimes and what you already have installed.
 
-## Instalar
+What you end up with:
 
-1. Descarga la última versión publicada (Releases → `vX.Y` → *Source code*) y descomprímela.
-2. Abre tu asistente de terminal en esa carpeta y escribe:
-
-   > Lee `promptinicial.md` y síguelo.
-
-Sirve tanto para un equipo virgen como para una instalación previa, que se actualiza sin destruir nada:
-copia de seguridad verificada, fusión y diffs con confirmación.
-
-## Actualizar
-
-Una vez instalado, pídele al asistente «busca actualizaciones del kit» (skill `actualizar`). Consulta
-las versiones publicadas aquí y aplica solo los apartados que han cambiado, con tu confirmación.
-
-**Si vienes de la v2.x** (kit en zip): tu instalación no busca en este repositorio, así que el primer
-salto es manual. Descarga la última versión y sigue los pasos de instalación de arriba: se detecta como instalación
-con marca anterior y se fusiona sin perder nada (el código que ya tengas copiado se conserva). Desde ahí,
-las actualizaciones llegan de aquí.
-
-## Estructura
-
-| Ruta | Qué es |
+| | |
 |---|---|
-| `promptinicial.md` | Punto de entrada |
-| `MANIFIESTO.md` | Apartados, versión de cada uno y si es obligatorio |
-| `fases/` | Fases 0-9 de la instalación |
-| `adaptadores/` | Traducción de cada asistente de terminal (rutas, formatos, capacidades) |
-| `plantillas/instrucciones.md` | Plantilla de las instrucciones permanentes |
-| `plantillas/retorno.md` | Plantilla del informe de retorno |
-| `aportaciones/` | Informes de retorno enviados por los usuarios |
-| `modulos/` | Módulos opcionales (M1-M8) |
-| `actualizar.md` | Flujo de actualización desde este repositorio |
-| `CAMBIOS.md` | Cambios por versión |
+| **Persistent memory** | A plain-Markdown vault (Obsidian-style links) of recipes, solved errors, project context and how to brief each subagent. It grows with use. |
+| **Orchestration** | The main session decides and integrates; scoped subagents (explorer, implementer, verifier, agent architect) do sweeps and bounded work. |
+| **Self-built tools** | When a task keeps repeating, it creates a new agent or skill for it, with frontmatter, permissions and a real test. |
+| **Golden rules** | Nothing is "done" without a real test, no swallowed errors, secrets never in chat or code, long jobs detached with logs. |
+| **Optional modules** | Graphical privilege elevation + safety hook, automatable browser, auxiliary personas, desktop UI, system audit, local small model, advanced agents. |
 
-## Contribuir
+## Why a spec kit instead of code
 
-Al terminar una instalación o actualización, el asistente ofrece crear un informe de retorno: el
-sistema donde se instaló, lo que falló o el kit no tenía previsto y, al actualizar, lo que tu sistema
-tiene y podría servir a otros. Se anonimiza, lo revisas entero y, si quieres, se envía como propuesta a
-`aportaciones/` (necesita cuenta de GitHub). Nada sale sin tu confirmación.
+- **Adapts instead of assuming.** Two installs can differ inside; what must match is the behaviour
+  described by each section's acceptance criteria.
+- **Never destroys your setup.** Existing instructions, memory, agents, skills and hooks are backed up
+  (verified), merged and changed only after you see a diff and confirm.
+- **Verifiable.** Every phase and module ends with acceptance criteria the assistant must actually run.
+- **Updatable by section.** A manifest versions each file; updates apply only what changed, from
+  published tags.
 
-## Requisitos
+```mermaid
+flowchart LR
+    K[Claudio kit<br/>Markdown specs] -->|"Read promptinicial.md"| A[Your terminal assistant]
+    A --> D[0 · Detect machine]
+    D --> I[1 · Interview]
+    I --> B[2 · Verified backup]
+    B --> C[3-5 · Instructions, memory,<br/>agents, skills, settings]
+    C --> M[6 · Optional modules]
+    M --> V[7 · Real verification]
+    V --> R[8 · Report]
+    R -.optional.-> F[9 · Anonymized feedback PR]
+    F -.improves.-> K
+```
 
-Un asistente de terminal con sesión iniciada que cargue instrucciones globales (Claude Code
-recomendado). Pensado para Linux con escritorio; en macOS o Windows, las fases base
-funcionan y algunos módulos se adaptan o no aplican.
+## Install
 
-## Seguridad
+1. Download the [latest release](https://github.com/golosw/Claudio/releases/latest) (*Source code*) and
+   unzip it, or `git clone --branch v3.2 https://github.com/golosw/Claudio`.
+2. Open your terminal assistant in that folder and type:
 
-Cada instalación aplica los cambios en su máquina enseñando un diff y pidiendo confirmación. Solo se
-usan las etiquetas publicadas, nunca la rama principal.
+   > Read `promptinicial.md` and follow it.
+
+It works on a fresh machine and on an existing setup alike. The assistant interviews you briefly
+(name, language, what you use it for) and from then on **answers in the language you choose**. Note:
+the kit, and for now the instruction files it generates, are written in Spanish.
+
+## Update
+
+Once installed, ask your assistant to "search for kit updates" (`actualizar` skill). It compares the
+published manifest with yours and applies only the changed sections, with your confirmation.
+
+## Status and honesty notes
+
+- **Claude Code** is the reference and the only assistant tested end to end. Adapters exist for
+  Codex CLI, Gemini CLI and opencode (**untested**), plus a generic procedure. Whatever a program can't
+  do degrades visibly and the final report says so.
+- Designed for Linux with a desktop. On macOS or Windows the base phases work; some modules adapt or
+  don't apply.
+- Tested installs so far are in Spanish; answering in another language is supported by the
+  interview but not yet verified.
+
+## Structure
+
+| Path | What it is |
+|---|---|
+| `promptinicial.md` | Entry point |
+| `MANIFIESTO.md` | Sections, per-section version, mandatory or optional |
+| `fases/` | Install phases 0-9 |
+| `adaptadores/` | Per-assistant translation (paths, formats, capabilities) |
+| `modulos/` | Optional modules M1-M8 |
+| `plantillas/` | Templates: permanent instructions, feedback report |
+| `aportaciones/` | Feedback reports sent by users |
+| `actualizar.md` | Update flow from this repository |
+| `CAMBIOS.md` | Changelog |
+
+## Contribute
+
+At the end of an install or update, the assistant offers to write a feedback report: your system,
+what failed or the kit didn't foresee, and (on update) what your setup has that could help others.
+It's anonymized, you review all of it, and if you want it's sent as a pull request to `aportaciones/`.
+Nothing leaves your machine without your confirmation.
+
+## Security
+
+Every change on your machine is shown as a diff and needs your confirmation. Updates come only from
+published tags, never from `main`.
+
+## License
+
+[MIT](LICENSE)
