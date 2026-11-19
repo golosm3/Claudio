@@ -1,0 +1,216 @@
+<!-- ESQUELETO DE LA INTERFAZ (plantilla del kit, M4).
+     Úsalo tal cual como `static/index.html` y conecta tu `app.js` a estos id: son el contrato de
+     la interfaz (barra lateral con conversaciones/proyectos/personalidades, selector de modelo
+     `#sel-modelo`, vistas de agentes `#vista-agentes`, skills, modelos, sesiones y ajustes `#vista-ajustes`).
+     Sustituye `__CLAUDIO_TOKEN__` en el servidor por el token de cada arranque. El nombre visible
+     del asistente se rellena desde la configuración (`#nombre-activo`, `<title>`), nunca fijo aquí.
+     Estilos: `ui-estilo.css`, sin tocar. Las hojas de `vendor/` (resaltado de código) se sirven en local. -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="token" content="__CLAUDIO_TOKEN__">
+<title>Asistente</title>
+<link rel="icon" href="logo.svg">
+<link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" id="hl-claro" href="vendor/github.min.css">
+<link rel="stylesheet" id="hl-oscuro" href="vendor/github-dark.min.css" disabled>
+</head>
+<body>
+<div id="app">
+  <!-- Columna izquierda -->
+  <aside id="lateral">
+    <div class="marca"><img src="logo.svg" alt=""><span class="nombre-asistente">Asistente</span><small id="version-inst" hidden></small></div>
+    <div class="avisos-act"><button id="btn-update" hidden>update disponible</button><button id="btn-kit" hidden>kit</button></div>
+    <nav id="nav">
+      <button data-vista="chat" class="activo"><i data-ico="chat"></i>Chat</button>
+      <button data-vista="agentes"><i data-ico="agentes"></i>Agentes</button>
+      <button data-vista="skills"><i data-ico="skills"></i>Skills</button>
+      <button data-vista="modelos"><i data-ico="modelos"></i>Modelos</button>
+      <button data-vista="sesiones"><i data-ico="sesiones"></i>Sesiones</button>
+      <button data-vista="ajustes"><i data-ico="ajustes"></i>Ajustes</button>
+    </nav>
+    <div class="cab-seccion">
+      <span>CONVERSACIONES</span>
+      <button id="nueva-conv" class="ico-btn" title="Nueva conversación"><i data-ico="mas"></i></button>
+    </div>
+    <input id="filtro-conv" class="filtro" placeholder="Buscar conversación…" hidden>
+    <ul id="lista-conv"></ul>
+    <div id="sistema" class="tarjeta">
+      <div class="sis-estado"><span class="punto"></span><span id="sis-texto">Comprobando…</span></div>
+      <div class="barra-fila" id="fila-gpu" title="Uso de la GPU"><span>GPU</span><div class="barra"><div></div></div><em></em></div>
+      <div class="barra-fila" id="fila-vram" title="Memoria de la GPU"><span>VRAM</span><div class="barra"><div></div></div><em></em></div>
+      <div class="barra-fila" id="fila-ram"><span>RAM</span><div class="barra"><div></div></div><em></em></div>
+      <div class="barra-fila" id="fila-cpu"><span>CPU</span><div class="barra"><div></div></div><em></em></div>
+      <div class="barra-fila" id="fila-sesion" hidden><span>Sesión</span><div class="barra"><div></div></div><em></em></div>
+      <div class="barra-fila" id="fila-semana" hidden><span>Semana</span><div class="barra"><div></div></div><em></em></div>
+    </div>
+  </aside>
+
+  <!-- Columna central -->
+  <main id="centro" class="tarjeta">
+    <section id="vista-chat" class="vista">
+      <header class="cab-chat">
+        <i data-ico="reloj" class="ico-titulo"></i>
+        <h1 id="titulo-conv">Nueva conversación</h1><span id="etq-modo" class="etiqueta" hidden></span>
+        <button id="renombrar" class="ico-btn peq" title="Renombrar"><i data-ico="lapiz"></i></button>
+        <div class="acciones">
+          <button id="btn-avanzado" class="ico-btn" title="Modo avanzado: ver qué está haciendo por dentro"><i data-ico="cerebro"></i></button>
+          <button id="btn-buscar" class="ico-btn" title="Buscar en la conversación"><i data-ico="lupa"></i></button>
+          <button id="btn-exportar" class="ico-btn" title="Exportar a Markdown"><i data-ico="compartir"></i></button>
+          <button id="btn-remoto" class="ico-btn" title="Continuar en el móvil (abre un terminal con Remote Control)"><i data-ico="movil"></i></button>
+          <button id="btn-menu" class="ico-btn" title="Más opciones"><i data-ico="puntos"></i></button>
+          <button id="btn-panel" class="ico-btn solo-estrecho" title="Panel lateral"><i data-ico="panel"></i></button>
+          <div id="menu-conv" class="menu" hidden>
+            <button data-accion="exportar">Exportar a Markdown</button>
+            <button data-accion="renombrar">Renombrar</button>
+            <button data-accion="borrar" class="peligro">Borrar conversación</button>
+          </div>
+        </div>
+      </header>
+      <div id="barra-busqueda" hidden><input id="buscar-texto" placeholder="Buscar en esta conversación…"><span id="buscar-cuenta"></span></div>
+      <div class="zona-mensajes">
+        <div id="mensajes">
+          <div id="bienvenida">
+            <div class="hola"><img src="logo.svg" alt=""><h2>Hola, soy <span id="nombre-activo" class="nombre-asistente">Asistente</span></h2></div>
+            <p>¿En qué puedo ayudarte hoy?</p>
+            <div class="sugerencias" id="skills-rapidas"></div>
+          </div>
+        </div>
+        <button id="btn-final" class="btn-final" title="Ir al final" hidden><i data-ico="flecha"></i></button>
+      </div>
+      <footer class="compositor">
+        <div id="menu-comandos" class="menu-comandos" hidden></div>
+        <div id="ayuda-comando" class="ayuda-comando" hidden></div>
+        <div id="adjuntos-pend"></div>
+        <div class="fila-entrada">
+          <button id="btn-adjuntar" class="ico-btn borde" title="Adjuntar archivo"><i data-ico="mas"></i></button>
+          <input type="file" id="fichero" multiple hidden>
+          <div class="entrada">
+            <textarea id="texto" rows="1" placeholder="Escribe tu mensaje…"></textarea>
+            <select id="sel-modelo" title="Modelo"></select>
+          </div>
+          <button id="btn-enviar" class="enviar" title="Enviar (Enter)"><i data-ico="enviar"></i></button>
+        </div>
+      </footer>
+    </section>
+
+    <section id="vista-agentes" class="vista pagina" hidden>
+      <h1>Agentes</h1><p class="sub">Subagentes disponibles para <span class="nombre-asistente">el asistente</span> (globales y del proyecto).</p><div class="rejilla" id="rej-agentes"></div>
+    </section>
+    <section id="vista-skills" class="vista pagina" hidden>
+      <h1>Skills</h1><p class="sub">Instrucciones empaquetadas que <span class="nombre-asistente">el asistente</span> carga cuando la tarea lo requiere.</p><div class="rejilla" id="rej-skills"></div>
+    </section>
+    <section id="vista-modelos" class="vista pagina" hidden>
+      <h1>Modelos</h1><p class="sub">Elige el modelo por defecto. También puedes cambiarlo por mensaje en el selector del chat.</p><div class="rejilla" id="rej-modelos"></div>
+    </section>
+    <section id="vista-sesiones" class="vista pagina" hidden>
+      <h1>Sesiones</h1><p class="sub">Sesiones de Claude Code en terminal (transcripciones locales de <code id="ses-raiz"></code>): coste equivalente a precio de API, hilos que conviene cerrar y delegaciones. Los límites de sesión y semana están en el panel de la izquierda.</p>
+      <div class="fila-botones ses-controles"><label>Últimos <select id="ses-dias"><option>7</option><option selected>30</option><option>90</option></select> días</label><label><input type="checkbox" id="ses-largas"> solo hilos largos</label><span id="ses-estado"></span></div>
+      <div class="rejilla ses-resumen" id="ses-resumen"></div>
+      <h2>Por modelo</h2><div id="ses-modelos"></div>
+      <h2>Sesiones</h2><div id="ses-lista"></div>
+    </section>
+    <section id="vista-ajustes" class="vista pagina" hidden>
+      <h1>Ajustes</h1>
+      <form id="form-ajustes" class="formulario">
+        <label>Nombre del asistente<input name="nombre" required maxlength="40"></label>
+        <label>Carpeta raíz de proyectos<input name="raiz" required></label>
+        <label>Modo de permisos de herramientas<select name="permisos"></select>
+          <small>auto: decide con un clasificador de seguridad · acceptEdits: acepta ediciones · plan: solo planifica · bypassPermissions: sin ninguna comprobación (peligroso)</small></label>
+        <label>Tema<select name="tema"><option value="sistema">Seguir al sistema</option><option value="claro">Claro</option><option value="oscuro">Oscuro</option></select></label>
+        <label>Herramientas del CLI<input name="herramientas" placeholder="vacío: todas · ninguna: solo charla · Read,Grep,Bash: solo esas">
+          <small>Se pasa como <code>--tools</code>. «ninguna» quita las herramientas integradas (las MCP siguen) y ahorra unos 22K tokens de esquemas por turno: charlas rápidas o modelos locales con poco contexto.</small></label>
+        <label>Conversaciones en paralelo (tope)<input name="paralelo" type="number" min="1" max="8" placeholder="vacío: automático según la memoria">
+          <small>Turnos simultáneos. Vacío: se calcula del techo de memoria del servicio.</small></label>
+        <fieldset class="grupo-voz">
+          <legend>Lectura en voz alta</legend>
+          <label>Voz<select name="voz"></select>
+            <small id="voz-estado"></small></label>
+          <label><span>Velocidad <output data-de="voz_velocidad"></output></span><input type="range" name="voz_velocidad" min="-50" max="100" step="5"></label>
+          <label><span>Tono <output data-de="voz_tono"></output></span><input type="range" name="voz_tono" min="-50" max="50" step="1"></label>
+          <label><span>Volumen <output data-de="voz_volumen"></output></span><input type="range" name="voz_volumen" min="-50" max="50" step="5"></label>
+          <div class="fila-botones"><button type="button" id="btn-probar-voz" class="ico-btn peq borde-voz" title="Probar la voz con estos valores (sin guardar)"><i data-ico="altavoz"></i></button><small>Probar sin guardar</small></div>
+          <small>Usa las voces neuronales de Microsoft Edge (edge-tts): necesita conexión y el texto de la respuesta se envía a ese servicio para convertirlo en audio. No hace falta cuenta.</small>
+        </fieldset>
+        <div class="fila-botones"><button class="primario">Guardar</button><span id="ajustes-estado"></span></div>
+      </form>
+      <div id="info-claude" class="sub"></div>
+    </section>
+  </main>
+
+  <!-- Columna derecha -->
+  <aside id="derecha">
+    <div class="tarjeta panel">
+      <div class="cab-panel"><i data-ico="personas"></i><h2>Personalidades</h2>
+        <span class="info" title="Elige con quién hablas. La personalidad se aplica desde el siguiente mensaje."><i data-ico="info"></i></span></div>
+      <div id="lista-pers"></div>
+      <button id="crear-pers" class="contorno"><i data-ico="mas"></i>Crear personalidad</button>
+    </div>
+    <div class="tarjeta panel crece">
+      <div class="cab-panel"><i data-ico="carpeta"></i><h2>Proyectos</h2>
+        <button id="ordenar-arbol" class="ico-btn" title="Ordenar: evaluar la carpeta y agrupar proyectos y versiones"><i data-ico="ordenar"></i></button>
+        <button id="refrescar-arbol" class="ico-btn" title="Refrescar"><i data-ico="refrescar"></i></button></div>
+      <div id="arbol"></div>
+      <div class="pie-arbol">Raíz: <i data-ico="carpeta"></i><span id="raiz-nombre"></span></div>
+    </div>
+  </aside>
+</div>
+
+<dialog id="dlg-archivo" class="dialogo grande">
+  <header><h3 id="dlg-archivo-titulo"></h3><div>
+    <a id="dlg-archivo-descargar" class="ico-btn" title="Descargar"><i data-ico="descargar"></i></a>
+    <button id="dlg-archivo-mencionar" class="ico-btn" title="Mencionar en el chat"><i data-ico="chat"></i></button>
+    <button class="ico-btn cerrar" title="Cerrar"><i data-ico="x"></i></button></div></header>
+  <div id="dlg-archivo-cuerpo" class="md"></div>
+</dialog>
+
+<dialog id="dlg-pers" class="dialogo">
+  <form method="dialog" id="form-pers">
+    <header><h3>Nueva personalidad</h3><button type="button" class="ico-btn cerrar"><i data-ico="x"></i></button></header>
+    <p class="sub" style="margin:0"><span class="nombre-asistente">El asistente</span> te hará unas preguntas para entender el objetivo y diseñará toda la configuración por ti.</p>
+    <label>¿Qué necesitas que haga? (opcional, una frase basta)<textarea name="idea" rows="3" placeholder="Por ejemplo: alguien que me ayude a planificar rutas de MTB"></textarea></label>
+    <div class="fila-botones"><button class="primario" value="ok">Empezar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-skill" class="dialogo">
+  <form method="dialog" id="form-skill">
+    <header><h3>Nueva skill</h3><button type="button" class="ico-btn cerrar"><i data-ico="x"></i></button></header>
+    <p class="sub" style="margin:0"><span class="nombre-asistente">El asistente</span> te hará unas preguntas para entender el objetivo y creará la skill optimizada por ti.</p>
+    <label>¿Qué tarea quieres automatizar? (opcional, una frase basta)<textarea name="idea" rows="3" placeholder="Por ejemplo: revisar un CSV de gastos y resumirlo por categorías"></textarea></label>
+    <div class="fila-botones"><button class="primario" value="ok">Empezar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-elegir-skills" class="dialogo">
+  <form method="dialog" id="form-elegir-skills">
+    <header><h3>Elegir skills</h3><button type="button" class="ico-btn cerrar"><i data-ico="x"></i></button></header>
+    <p class="sub" style="margin:0">Marca las que quieras como botón en la ventana principal (máx. 12). Salen en el orden en que las marques.</p>
+    <div id="lista-elegir-skills"></div>
+    <div class="fila-botones"><button class="primario" value="ok">Guardar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-confirmar" class="dialogo">
+  <form method="dialog"><p id="confirmar-texto"></p>
+    <div class="fila-botones"><button value="no">Cancelar</button><button value="si" class="peligro-btn">Borrar</button></div></form>
+</dialog>
+
+<div id="menu-lista" class="menu" hidden>
+  <button data-accion="renombrar">Renombrar</button>
+  <button data-accion="exportar">Exportar a Markdown</button>
+  <button data-accion="borrar" class="peligro">Eliminar</button>
+</div>
+
+<div id="avisos"></div>
+
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/purify.min.js"></script>
+<script src="vendor/highlight.min.js"></script>
+<script src="vendor/chart.umd.js"></script>
+<script src="iconos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -100,28 +100,38 @@ las de Claude Code como ejemplo.
 | Ajustes | Panel con lo configurable (nombre, carpeta de proyectos, tope de conversaciones en paralelo, tema), guardado en la carpeta de datos |
 | Kit disponible | Al arrancar y una vez al día, consulta la última versión publicada del repositorio del kit (ver `actualizar.md`). Si es mayor que la instalada, muestra un botón «kit vX.Y disponible» que pide al asistente ejecutar la skill `actualizar`. Si no hay marca de instalación, el botón es «Instalar Claudio». Antes de lanzarlo, el botón explica qué hace: instala o actualiza el kit (las instrucciones, skills y agentes del asistente), no la aplicación; fusiona con lo existente tras una copia de seguridad; y desaparece cuando la marca coincide con la última versión. Nunca aplica nada solo |
 
-**Aspecto (mínimo exigible)**: que funcione no basta; una interfaz de una sola columna con estilos
-por defecto es la queja habitual. Como mínimo:
-- barra lateral plegable (conversaciones con búsqueda, proyectos, personalidades, agentes) y zona de chat
-  con el cuadro de entrada fijo abajo;
-- tema claro y oscuro (por defecto el del sistema), tipografía legible y código con resaltado;
-- estados visibles: escribiendo, herramienta en curso con su tiempo, en cola, esperando permiso, error;
-- usable a partir de 360 px de ancho (barra lateral como cajón) y con teclado (Intro envía,
-  Mayús+Intro salto de línea, Esc cierra diálogos);
-- sin librerías desde una CDN: lo que haga falta va servido localmente (la CSP lo exige).
+**Aspecto**: que funcione no basta; una interfaz de una sola columna con estilos por defecto es la
+queja habitual, y en la prueba de 2026-11-19 (sin exigencia explícita) salió una página con 61 líneas de
+CSS. Por eso el aspecto **no se inventa: se copia de dos plantillas del kit**.
+- `plantillas/ui-esqueleto.html` → `static/index.html`: barra lateral plegable (conversaciones con búsqueda,
+  proyectos, personalidades), zona de chat con el cuadro de entrada fijo abajo, selector de modelo
+  `#sel-modelo` y las vistas de agentes, skills, modelos, sesiones y ajustes. Sus `id` son el contrato:
+  el `app.js` se escribe contra ellos; no se renombran ni se quitan.
+- `plantillas/ui-estilo.css` → `static/estilo.css`, sin recortar: tema claro y oscuro (por defecto el del
+  sistema), insignias de estado (trabajando, esperando permiso, en cola), diálogos y adaptación a pantallas
+  estrechas (barra lateral como cajón). Personalizar es cambiar las variables de `:root`, no reescribir.
+- Además: código con resaltado servido en local (sin librerías desde una CDN: la CSP lo exige), Intro
+  envía, Mayús+Intro salto de línea, Esc cierra diálogos, estados visibles (escribiendo, herramienta en
+  curso con su tiempo, error).
+- El nombre visible del asistente se rellena desde la configuración; las plantillas no llevan ninguno.
+- Que se vea bien no lo mide el número de líneas: se comprueba con capturas reales (ver criterios).
 
 **Cómo construirla**: es el módulo más grande del kit (una interfaz completa ronda varios miles de
-líneas). No la escribas al final de una sesión larga de instalación:
-- constrúyela en una sesión o subagente dedicado, que reciba esta especificación y los datos de la
-  máquina, no el historial de la instalación;
+líneas) y escribirla al final de una sesión larga de instalación sale peor que en una sesión limpia
+(el contexto lleno recorta funciones y aspecto). Por eso la construcción **no se hace en la sesión de
+instalación**, es obligatorio delegarla:
+- lanza un subagente o una sesión nueva que reciba solo esta especificación, las dos plantillas y los datos
+  de la máquina (SO, puertos, rutas del archivo de entorno), no el historial de la instalación. Si el CLI
+  no permite subagentes, una sesión nueva del propio CLI en modo no interactivo con ese encargo;
 - por etapas, cada una probada antes de pasar a la siguiente:
   1. backend, seguridad, chat en streaming y permisos;
   2. conversaciones en paralelo y reanudación;
-  3. archivos, gráficas, árbol y aspecto;
-  4. el resto de la tabla de funciones;
+  3. archivos, gráficas, árbol y aspecto (copiar las plantillas);
+  4. el resto de la tabla de funciones (modelo, agentes y ajustes incluidos);
 - termina con un informe que tenga una fila por función de la tabla: **hecha**, **parcial** o **no
   hecha**, con la prueba que lo demuestra. Las parciales y no hechas se le dicen al usuario y quedan en
-  el `ESTADO.md` de la interfaz; no se presentan como terminadas.
+  el `ESTADO.md` de la interfaz; la instalación no da M4 por terminado ni lo presenta como completo
+  mientras queden funciones sin hacer sin avisar.
 
 **Interfaz heredada (v2.x) con actualización por servidor**: las interfaces de la serie 2 traían dos
 avisos que leían de un servidor configurado (`<servidor>/…/version.json` para actualizarse a sí mismas y
@@ -167,6 +177,17 @@ Pruébala con un **navegador automatizado** recorriendo el flujo real (M2 si est
 - Una petición de permiso de una conversación en segundo plano aparece marcada en la lista y se puede
   responder al abrirla.
 - Superar el tope de conversaciones activas deja el turno en cola visible, sin error.
+- **Aspecto** (con el navegador automatizado que haya en el equipo, p. ej. el de M2; si no hay ninguno, el
+  usuario mira las capturas y se anota «sin verificar» en el `ESTADO.md` de la interfaz): a 1300 px y a 360 px la página tiene
+  barra lateral, zona de chat y cuadro de entrada visibles, con el esquema oscuro del sistema el fondo cambia, no hay
+  desbordamiento horizontal y `estilo.css` conserva las variables de tema de la plantilla. Se guardan las
+  dos capturas para que el usuario las vea. Queda sin comprobar lo que solo se ve a ojo (que guste).
+- **Modelo**: elegir otro modelo en `#sel-modelo` y enviar un mensaje lanza el turno con ese modelo
+  (visible en el registro del servicio o en la conversación guardada).
+- **Agentes**: `#vista-agentes` lista los subagentes instalados con su descripción, y pulsar uno inserta un
+  encargo en el cuadro de entrada.
+- **Ajustes**: cambiar un valor en `#vista-ajustes`, guardar, reiniciar el servicio y comprobar que se
+  conserva (incluido el tope de conversaciones en paralelo).
 - Cada función de la tabla tiene su comprobación en el informe final (hecha / parcial / no hecha).
 - El servicio sobrevive a cerrar la ventana y tiene techo de memoria (`systemctl --user show -p MemoryMax`).
 

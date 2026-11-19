@@ -1,4 +1,4 @@
-# promptinicial.md — Claudio v3.3
+# promptinicial.md — Claudio v3.4
 
 Punto de entrada. Abre tu asistente de terminal en la carpeta donde está este archivo y dile:
 

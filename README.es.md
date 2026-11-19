@@ -16,7 +16,7 @@ cualquier otro: lo que el programa no permita se degrada de forma visible.
 ## Instalar
 
 1. Descarga la [última versión](https://github.com/golosw/Claudio/releases/latest) (*Source code*) y
-   descomprímela, o `git clone --branch v3.3 https://github.com/golosw/Claudio`.
+   descomprímela, o `git clone --branch v3.4 https://github.com/golosw/Claudio`.
 2. Abre tu asistente de terminal en esa carpeta y escribe:
 
    > Lee `promptinicial.md` y síguelo.

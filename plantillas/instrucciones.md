@@ -1,4 +1,4 @@
-<!-- prompt-inicial v3.3 · {{FECHA}} -->
+<!-- prompt-inicial v3.4 · {{FECHA}} -->
 # Instrucciones permanentes de {{ASISTENTE}}
 
 Responde SIEMPRE en {{IDIOMA}}. Sin preámbulos ni relleno en tareas cortas: haz y

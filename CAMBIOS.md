@@ -1,5 +1,15 @@
 # CAMBIOS
 
+## v3.4
+
+Origen: la prueba de M4 desde cero (2026-11-19): salió una página con 61 líneas de CSS, sin selector
+de modelo, panel de agentes ni ajustes, y el contexto de una instalación real (sesión larga) lo empeora.
+
+- **Interfaz** (`modulos/04-interfaz.md`): el aspecto deja de ser un mínimo escrito y pasa a copiarse de
+  `plantillas/ui-esqueleto.html` y `plantillas/ui-estilo.css` (los `id` son el contrato). La construcción
+  en sesión o subagente dedicado pasa de consejo a obligatoria, con informe por función (hecha / parcial /
+  no hecha) como puerta de salida. Criterios nuevos: aspecto, modelo, agentes y ajustes.
+
 ## v3.3
 
 Origen: la incidencia #1 (opencode v2 en Termux) y el informe de retorno de la propuesta #2
