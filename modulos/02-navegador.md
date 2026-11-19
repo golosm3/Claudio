@@ -1,5 +1,7 @@
 # M2 — Navegador automatizable
 
+Para: perfiles `linux`, `macos` y `windows`. En `terminal`, solo si hay un Chromium headless instalable para la arquitectura (en Android/Termux, no: usa la lectura web integrada).
+
 Necesita: nada del asistente (es una CLI propia); solo `<INSTR_LOCAL>` para documentarla.
 
 ## Por qué
@@ -33,6 +35,10 @@ cualquier página sin improvisar un script cada vez.
   no en el global: qué es, los subcomandos y las opciones, y cuándo usar WebFetch en su lugar (web
   estática).
   Si el programa no tiene lectura web integrada, `navegador` es la vía para toda página.
+- **Perfil `windows`**: el lanzador en el PATH es un `navegador.cmd` que llama al Python del venv con
+  el script. PowerShell 5.1 quita las comillas dobles internas al pasar argumentos a un ejecutable
+  nativo: en `evaluar`, escribe las cadenas del JS con comillas simples
+  (`navegador evaluar URL "document.querySelector('h1').innerText"`) y documéntalo así.
 
 ## Criterios de aceptación
 

@@ -11,6 +11,20 @@
    si hay actualizaciones o un reinicio pendientes. Las carpetas de usuario (escritorio,
    documentos) se resuelven con el mecanismo del sistema (`xdg-user-dir` en Linux, rutas
    estándar en macOS/Windows), nunca asumiendo un nombre como `~/Desktop`.
+   **Perfil de plataforma**: con lo anterior, clasifica el equipo en uno de estos perfiles; las fases,
+   los módulos y la plantilla de instrucciones dicen qué aplica en cada uno:
+   - `linux`: Linux con sesión gráfica;
+   - `macos`;
+   - `windows` (anota también la shell del asistente: PowerShell 5.1/7, Git Bash, WSL);
+   - `terminal`: sin escritorio ni sesión gráfica: Android/Termux, servidor por SSH, contenedor o
+     Linux sin sesión gráfica. Aquí no hay `xdg-user-dir`, lanzadores, ventanas ni, a menudo,
+     systemd, root o KVM: no los busques como fallo; anótalos como «no aplica».
+   Si dudas entre dos (p. ej. WSL dentro de Windows, o un Linux con escritorio al que se entra por
+   SSH), usa el de la sesión donde corre el asistente y dilo en el resumen.
+   **Equipo gestionado**: mira si lo administra una organización (Windows: `dsregcmd /status`
+   unido a dominio o Entra/MDM; macOS: `profiles status -type enrollment`; Linux: `realm list` o
+   agentes de gestión conocidos). Si lo es, anótalo: los servicios, tareas y políticas corporativas no
+   se tocan, y lo que necesite administrador se agrupa en un solo script (M5).
 2. **Estado de `<CONFIG>`**: para cada una de estas piezas, anota si existe y cuánto
    contiene: `<INSTRUCCIONES>`, `<AJUSTES>` (lo que el adaptador diga que guarda: entorno, hooks,
    permisos, línea de estado, compactado), `<AGENTES>`, `<SKILLS>`, `memoria/` (notas por carpeta e
@@ -43,6 +57,6 @@
      propio (ajuste de servidor de actualizaciones, `version.json`, `kit.json`, carpeta `uiupdate`),
      márcala en el resumen como «a adaptar»: en la Fase 6 se aplica lo que dice M4 para interfaces
      heredadas.
-4. Enséñame un resumen corto (una tabla: pieza, estado, qué harás con ella; incluye el asistente y
-   su adaptador, las capacidades que quedan degradadas, y la carpeta de proyectos detectada y con
+4. Enséñame un resumen corto (una tabla: pieza, estado, qué harás con ella; incluye el perfil de
+   plataforma, si es un equipo gestionado, el asistente y su adaptador, las capacidades que quedan degradadas, y la carpeta de proyectos detectada y con
    qué pista) antes de seguir.

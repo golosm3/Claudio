@@ -1,5 +1,7 @@
 # M8 — Agentes avanzados
 
+Para: todos los perfiles.
+
 ## Por qué
 
 La base trae solo `explorador` y `verificador`: delegar cuesta (un subagente arranca frío) y para un uso
@@ -43,10 +45,16 @@ el reparto de coste, modelo por nivel. Formatos de agente y skill, en el adaptad
 Añade la fila de estos agentes a la tabla de delegación de `<INSTRUCCIONES>` (la plantilla ya prevé la línea
 para cuando el módulo está instalado). No sobrescribas agentes ni skills con el mismo nombre: propón diff.
 
+Dónde escribe `arquitecto-agentes`: algunos programas no dejan a un subagente escribir en `<CONFIG>`
+(ruta protegida, sobre todo en modo no interactivo; ver el adaptador). Entonces escribe en una carpeta
+de preparación dentro de la carpeta de proyectos (`{{PROYECTOS}}`) y el hilo principal revisa y copia el resultado a `<AGENTES>` o
+`<SKILLS>`. Un agente o skill creado en una sesión no siempre se ve en esa misma sesión: pruébalo
+en una sesión nueva.
+
 ## Criterios de aceptación
 
 - Los dos agentes y las dos skills existen, con formato válido según el adaptador y sin la herramienta de lanzar agentes.
 - Un encargo real a `arquitecto-agentes` (p. ej. «crea un skill para comprobar el espacio en disco antes de
   un build») produce un skill que una sesión nueva usa sin que se lo nombren. Bórralo después: era de
-  prueba.
+  prueba. Los proyectos que se creen para probarlo van dentro de la carpeta de proyectos (`{{PROYECTOS}}`) y se borran también.
 - Un plan autocontenido pequeño ejecutado por `implementador` pasa sus puertas.

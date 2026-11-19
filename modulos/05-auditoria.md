@@ -1,5 +1,7 @@
 # M5 — Auditoría, optimización y puesta a punto del sistema
 
+Para: todos los perfiles. En `terminal`, solo el inventario de solo lectura y las recomendaciones; sin cambios del sistema.
+
 ## Por qué
 
 Un asistente que va a trabajar en la máquina necesita saber en qué estado está: si el SO tiene soporte,
@@ -11,6 +13,12 @@ otros módulos encajan.
 Como un proyecto: carpeta persistente `auditoria-sistema/` en la carpeta de proyectos, con `ESTADO.md`,
 `DECISIONES.md` y `DESCRIPCION.md` creados desde el inicio, nunca en temporales. Así el trabajo sobrevive
 a los reinicios. Si ya existe una auditoría anterior, léela y ofrece revisar solo lo nuevo.
+
+**Equipo gestionado** (la Fase 0 lo detecta: dominio, Intune/MDM, SCCM, perfil de inscripción): lo que
+gestiona la organización (sus agentes, servicios, tareas programadas y políticas) se inventaría pero no
+se toca ni se propone quitar. Lo que necesite administrador se junta en un solo script con log y marca
+de fin, que el usuario ejecuta elevado una vez; si su cuenta no es de administrador, se queda en
+informe.
 
 1. **Inventario (solo lectura)**
    - Sistema y paquetes: SO y versión, y si sigue con soporte; actualizaciones y reinicio pendientes;

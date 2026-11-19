@@ -35,7 +35,7 @@ skills, statusline, cli-reference, headless).
 | Modelo por nivel | sí | Niveles: económico = `haiku`, normal = `sonnet`, potente = `opus`. Hilo principal: `"model": "opusplan"` (Opus al planificar, Sonnet al ejecutar). Coste relativo: Fable ≈ 2,5× Opus, Opus ≈ 2× Sonnet; Fable solo si el usuario lo pide en la sesión (`/model fable`) |
 | No interactivo trazable | sí | `<NO_INTERACTIVO>`: cada línea es un evento JSON (herramientas, resultados, denegaciones, `total_cost_usd`, respuesta final) |
 | Canal de permisos | sí | `claude -p --input-format stream-json --output-format stream-json --verbose --permission-prompt-tool stdio`: cada petición de permiso o pregunta (`AskUserQuestion`) llega como evento y se responde por stdin |
-| Permisos | sí | `permissions.allow` / `deny` / `defaultMode` en `<AJUSTES>` o `settings.local.json`; `--permission-mode` en la orden manda sobre ellos |
+| Permisos | sí | `permissions.allow` / `deny` / `defaultMode` en `<AJUSTES>` o `settings.local.json`; `--permission-mode` en la orden manda sobre ellos. El clasificador del modo auto deniega que el asistente añada sus propias reglas `allow`: se proponen y las añade o confirma el usuario (Fase 5) |
 | Elevación gráfica | sí | `env.SUDO_ASKPASS` en `<AJUSTES>` |
 
 ## Interfaz (M4) y modelo propio (M7)
@@ -73,3 +73,12 @@ skills, statusline, cli-reference, headless).
 | Línea de estado (Fase 5) | Captura real: una `statusLine` provisional que vuelca stdin a un archivo y un mensaje en `claude` interactivo | El script pasa sus pruebas con ese JSON |
 | Delegación (Fase 7) | `<NO_INTERACTIVO>` con un encargo para `explorador` sobre una carpeta dentro de la de trabajo (en `-p` no lee fuera sin permiso) | Evento de herramienta `Agent`/`Task` con `subagent_type: explorador` |
 | Hook (M1) | `<NO_INTERACTIVO>` pidiendo `sudo whoami` | Bloqueado por el hook (visible en el stream) |
+
+Notas de las verificaciones:
+
+- **Windows con Git Bash**: MSYS convierte `/autocompact` en una ruta de archivo. Usa
+  `MSYS_NO_PATHCONV=1 claude -p /autocompact` o lánzalo desde PowerShell.
+- **`claude -p` y `~/.claude`**: en modo no interactivo, los subagentes no pueden escribir en
+  `<CONFIG>` (ruta protegida), y una sesión no ve los agentes o skills creados durante ella. Lo que
+  crea un subagente se escribe en una carpeta de preparación dentro de la carpeta de proyectos (`{{PROYECTOS}}`), el hilo
+  principal lo copia a `<CONFIG>` y se prueba en una sesión nueva (M8).

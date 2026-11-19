@@ -1,5 +1,7 @@
 # M3 — Personalidades auxiliares
 
+Para: todos los perfiles.
+
 Necesita: instrucciones por carpeta (`<INSTR_LOCAL>`). Si el programa solo carga las globales, la regla
 «hablar con <nombre>» va en `<INSTRUCCIONES>` con la ruta absoluta de `personalidades/`.
 

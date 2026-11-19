@@ -9,6 +9,11 @@ Todo lo que se añada a `<AJUSTES>` (aquí y en los módulos): lee el archivo ex
 y listas sin duplicar ni perder entradas, valida el resultado en su formato (JSON, TOML…) y enséñame
 el diff antes de guardarlo. Si el archivo existente no es válido, no lo toques: dímelo.
 
+Excepción: las reglas que amplían los permisos del propio asistente (listas `allow` o
+equivalentes) no las escribe el asistente, aunque el programa se lo permita. En algunos programas
+su clasificador de seguridad lo deniega, y con razón: el asistente no debe darse permisos a sí
+mismo. Propón la regla exacta y el archivo, y que el usuario la añada o la confirme expresamente.
+
 ## Línea de estado (pieza base si el programa la admite)
 
 Por qué: los hilos maratón. Medido en uso real, las sesiones de más de 200 turnos concentraban la
@@ -44,10 +49,19 @@ usuario, no la pises: propónmelo como diff.
 
 Sin línea de estado en el programa: plan B (regla de avisar de cerrar el hilo pasados ~100 turnos).
 
+Perfil `windows`: si el script es `.ps1`, guárdalo con BOM UTF-8 (PowerShell 5.1 lee los `.ps1`
+sin BOM como ANSI y rompe tildes y símbolos), y en sus pruebas fija
+`[Console]::OutputEncoding = [Text.Encoding]::UTF8` antes de comparar salidas.
+
 ## Compactado
 
 Si el programa lo permite, compacta el contexto en torno a **150 000 tokens** (antes de que cada turno
 pese ~200k). Clave en el adaptador.
+
+Si el programa no admite un umbral absoluto sino un margen (la parte de la ventana que queda libre,
+en tokens o en porcentaje), aplica el equivalente: margen = ventana del modelo − 150 000, con el
+mínimo que imponga el programa. Anota en el progreso la ventana usada para el cálculo; si la ventana
+es menor de ~180 000, deja el valor por defecto del programa y dilo.
 
 ## Modelo
 

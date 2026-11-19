@@ -4,22 +4,25 @@
 
 Pregúntame cuáles quiero con preguntas de selección múltiple (como mucho 4 opciones por pregunta:
 agrúpalos en dos si hace falta). Marca como recomendados los que encajen con mi dominio y con la
-máquina detectada y omite los que no apliquen (p. ej. los gráficos si no hay escritorio, o los que
-necesitan una capacidad que el adaptador marca como no disponible: cada módulo dice cuáles necesita).
+máquina detectada. **Ofrece solo los módulos cuyo «Para:» incluye el perfil de plataforma de la Fase 0**
+(columna «Perfiles»), y omite también los que necesitan una capacidad que el adaptador marca como no
+disponible (cada módulo dice cuáles necesita). Los omitidos se nombran en una línea con el motivo, sin
+preguntarlos.
 
-| Módulo | Archivo | Cuándo recomendarlo |
-|---|---|---|
-| M1 Elevación gráfica y red de seguridad | `modulos/01-elevacion-seguridad.md` | Linux con escritorio |
-| M2 Navegador automatizable | `modulos/02-navegador.md` | Investigación, desarrollo web |
-| M3 Personalidades auxiliares | `modulos/03-personalidades.md` | Investigación o roles distintos |
-| M4 Interfaz gráfica | `modulos/04-interfaz.md` | Con escritorio y usuario poco de terminal |
-| M5 Auditoría del sistema | `modulos/05-auditoria.md` | **Equipo virgen**: recomendado y el primero |
-| M6 Permisos ampliados | `modulos/06-permisos.md` | Nunca recomendado, salvo equipo dedicado a reparar otros |
-| M7 Modelo local pequeño | `modulos/07-modelo-local.md` | Solo si M4 hablará con un modelo local de 1-4B |
-| M8 Agentes avanzados | `modulos/08-agentes-avanzados.md` | Uso intensivo de desarrollo o de delegación |
+| Módulo | Archivo | Perfiles | Cuándo recomendarlo |
+|---|---|---|---|
+| M1 Elevación gráfica y red de seguridad | `modulos/01-elevacion-seguridad.md` | linux (macos, windows: solo la red de seguridad) | Linux con escritorio |
+| M2 Navegador automatizable | `modulos/02-navegador.md` | linux, macos, windows (terminal: solo con un Chromium headless instalable) | Investigación, desarrollo web |
+| M3 Personalidades auxiliares | `modulos/03-personalidades.md` | todos | Investigación o roles distintos |
+| M4 Interfaz gráfica | `modulos/04-interfaz.md` | linux, macos, windows | Con escritorio y usuario poco de terminal |
+| M5 Auditoría del sistema | `modulos/05-auditoria.md` | todos (terminal: solo inventario) | **Equipo virgen**: recomendado y el primero |
+| M6 Permisos ampliados | `modulos/06-permisos.md` | todos | Nunca recomendado, salvo equipo dedicado a reparar otros |
+| M7 Modelo local pequeño | `modulos/07-modelo-local.md` | linux, macos, windows (necesita M4) | Solo si M4 hablará con un modelo local de 1-4B |
+| M8 Agentes avanzados | `modulos/08-agentes-avanzados.md` | todos | Uso intensivo de desarrollo o de delegación |
 
 En un equipo virgen, M5 va primero porque sus hallazgos (sistema sin soporte, poca RAM, sin
-escritorio) cambian qué otros encajan.
+escritorio) cambian qué otros encajan. En un **equipo gestionado** (Fase 0), dilo al ofrecer M1, M5 y
+M6: lo corporativo no se toca.
 
 Para cada módulo elegido:
 1. Lee **solo** su archivo.
@@ -31,7 +34,7 @@ Para cada módulo elegido:
 
 Los módulos no elegidos no se tocan, aunque ya estén instalados.
 
-## Ejecutable estable (Linux, siempre, antes de los accesos directos)
+## Ejecutable estable (perfiles `linux` y `terminal` con systemd o servicios; siempre, antes de los accesos directos)
 
 Por qué: los accesos directos, los servicios y la interfaz no cargan el `.bashrc`. Si `<CLI>` cambia
 de sitio con una actualización (típico con npm/nvm), todo eso deja de funcionar.
@@ -56,7 +59,8 @@ abre la interfaz.
 - Márcalos como de confianza si el escritorio lo exige.
 - Antes, mira los accesos que ya haya: si alguno ya abre el asistente o la interfaz, no crees un
   duplicado. No sobrescribas uno distinto: enséñame el diff.
-- En otro sistema, el equivalente (macOS: un `.command`). Sin escritorio, dilo en el informe.
+- En otro sistema, el equivalente (macOS: un `.command`; Windows: un acceso directo `.lnk` o un `.cmd`
+  con la carpeta de trabajo fijada). Perfil `terminal`: no hay accesos directos; dilo en el informe.
 
 Aceptación: `desktop-file-validate` sin errores; lanzado de verdad (`gio launch <archivo>`), aparece
 un proceso `<CLI>` nuevo cuyo `/proc/<pid>/cwd` es la carpeta de proyectos (ciérralo por su PID).

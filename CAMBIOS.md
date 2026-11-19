@@ -1,5 +1,43 @@
 # CAMBIOS
 
+## v3.3
+
+Origen: la incidencia #1 (opencode v2 en Termux) y el informe de retorno de la propuesta #2
+(Windows con Claude Code), más las quejas sobre la interfaz de una instalación nueva.
+
+- **Perfiles de plataforma** (`fases/00-detectar.md`, `fases/06-modulos.md`, `fases/03-instrucciones.md`,
+  `plantillas/instrucciones.md`, línea «Para:» de cada módulo): la Fase 0 fija un perfil (`linux`,
+  `macos`, `windows`, `terminal`) y detecta si el equipo está gestionado por una organización. La Fase 6
+  solo ofrece los módulos de ese perfil y dice por qué omite los demás. La plantilla marca con
+  `<!-- perfiles: … -->` las reglas que solo valen en algunos (servicios y autoarranque, origen de las
+  herramientas, máquinas virtuales, elevación) y la Fase 3 deja solo los del perfil detectado.
+- **Windows** (`fases/05-ajustes.md`, `adaptadores/claude-code.md`, `modulos/02-navegador.md`,
+  `modulos/01-elevacion-seguridad.md`): scripts `.ps1` con BOM UTF-8 y salida UTF-8 en sus pruebas;
+  `MSYS_NO_PATHCONV=1` para `claude -p /autocompact` en Git Bash; lanzador `navegador.cmd` y comillas
+  simples en el JS de `evaluar` con PowerShell 5.1; elevación con UAC en un solo script.
+- **Equipos gestionados** (`modulos/05-auditoria.md`): lo corporativo se inventaría pero no se toca;
+  lo que requiere administrador va en un solo script con log y marca de fin.
+- **Permisos propios** (`fases/05-ajustes.md`, `plantillas/instrucciones.md`, adaptador de Claude Code):
+  el asistente no escribe reglas `allow` para sí mismo; las propone y el usuario las añade.
+- **Agentes avanzados** (`modulos/08-agentes-avanzados.md`, adaptador de Claude Code): si el programa no
+  deja a un subagente escribir en `<CONFIG>`, escribe en una carpeta de preparación y el hilo principal
+  la copia; lo creado se prueba en una sesión nueva.
+- **Interfaz** (`modulos/04-interfaz.md`): conversaciones en paralelo (cambiar de conversación no para la
+  anterior; turnos por conversación, cola con tope según la RAM, permisos en segundo plano en cola);
+  aspecto mínimo exigible; selector de modelo, lista de agentes y panel de ajustes; el veto de archivos
+  vale también para las herramientas del CLI; el árbol parte de `{{PROYECTOS}}`; el botón del kit
+  explica qué instala antes de lanzarlo.
+- **opencode v2** (`adaptadores/opencode.md`): compactado con `compaction.keep.tokens` y
+  `compaction.buffer` (verificado en la documentación oficial), equivalencias desde v1, perfil
+  `terminal` (Termux). El pie de estado por plugin queda «sin verificar». La Fase 5 explica cómo
+  traducir el umbral de 150 000 tokens a un margen. El adaptador sigue sin probar con el kit.
+- **Retorno** (`fases/09-retorno.md`, `plantillas/retorno.md`, `aportaciones/README.md`): si se envía
+  como incidencia, el cuerpo es el informe entero. Nuevo punto 3, **recetas para compartir**: el usuario
+  elige qué recetas o diagnósticos de infraestructura adjuntar; se reescriben con la nueva
+  `plantillas/receta-aportada.md`, se anonimizan y van en `aportaciones/recetas/`. En el repositorio
+  son material de estudio: nada se incorpora sin reproducirlo y reescribirlo.
+- Plantilla: marca `v3.3`.
+
 ## v3.2
 
 - **Informe de retorno** (`fases/09-retorno.md`, `plantillas/retorno.md`, nuevos): al terminar una

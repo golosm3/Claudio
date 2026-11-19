@@ -8,6 +8,12 @@ términos `<…>` del adaptador. Sustituye los términos por sus valores y, para
 adaptador marque como no disponible, redacta la sección según su plan B (`adaptadores/README.md`):
 el resultado no puede pedir al asistente algo que su programa no sabe hacer.
 
+**Bloques por plataforma.** Algunas partes de la plantilla van entre
+`<!-- perfiles: … -->` y `<!-- /perfiles -->`. Conserva solo los bloques cuya lista incluye el
+perfil de plataforma de la Fase 0 (`linux`, `macos`, `windows` o `terminal`), quita los demás
+enteros y borra los marcadores. Lo que no lleva marcador vale para todos los perfiles. Si en la
+fusión una regla existente pertenece a otro perfil, no la quites sin enseñármela.
+
 - **Virgen**: créalo con la plantilla, adaptada con mis datos.
 - **Previa o con marca**: fusiona sección a sección.
   - Conserva todo lo que ya hay: mis reglas, mi redacción y mis secciones propias,

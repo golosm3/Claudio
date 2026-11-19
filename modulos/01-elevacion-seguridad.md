@@ -1,7 +1,10 @@
 # M1 — Elevación gráfica de privilegios y red de seguridad
 
-Para: Linux con escritorio. En macOS/Windows no se construye el hook: documenta en `<INSTRUCCIONES>` el
-mecanismo nativo (osascript con privilegios de administrador / UAC).
+Para: perfil `linux`. En `macos` y `windows` no se construye el askpass: documenta en `<INSTRUCCIONES>` el
+mecanismo nativo (osascript con privilegios de administrador / UAC con `Start-Process -Verb RunAs` y
+espera a que termine) y, si no hay hook que analice la shell, monta la red de seguridad como reglas
+`deny` de permisos más una regla de confirmar borrados y formateos. En `terminal` sin sesión gráfica no
+hay ventana de contraseña: el usuario ejecuta él mismo lo que pida root.
 Necesita: hooks que bloquean (si el programa no los tiene, se instala solo el askpass y las órdenes
 vetadas pasan a texto en `<INSTRUCCIONES>`, con el aviso de que nada las hace cumplir).
 

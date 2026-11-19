@@ -1,5 +1,7 @@
 # M7 — Modelo local pequeño
 
+Para: perfiles `linux`, `macos` y `windows` (necesita M4).
+
 Solo si la interfaz de M4 va a hablar con un **modelo local de 1-4B** (servido por `llama-server` u otro
 servidor compatible) en vez de con un modelo grande en la nube. Con uno grande no se ofrece: sobra y
 añade latencia.

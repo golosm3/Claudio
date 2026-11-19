@@ -51,6 +51,13 @@ Versión de partida → llegada:
 
 - **<nombre genérico>**: qué hace, por qué es útil, cómo se generalizaría.
 
+## Recetas adjuntas
+
+<!-- Solo si el usuario eligió alguna (Fase 9, punto 3). Una línea por receta; el contenido va en su
+     archivo, con el formato de plantillas/receta-aportada.md. -->
+
+- `<AAAA-MM-DD>-<id>-<tema>.md`: qué resuelve, en una línea.
+
 ## Anonimización
 
 Sustituciones hechas: {{N}} (sin detallar).

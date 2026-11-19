@@ -5,6 +5,11 @@ Estado: **sin probar** con el kit. Tabla rellenada desde la documentación ofici
 «sin confirmar» no está en la documentación: compruébalo en la máquina (`opencode --help`, su carpeta)
 antes de usarlo, y anota el resultado en el progreso.
 
+Versión: lo que sigue corresponde a **opencode v2**. En v1 algunas claves se llamaban de otra forma
+(compactado: `preserve_recent_tokens` → `keep.tokens`, `reserved` → `buffer`; guía de migración en
+`https://opencode.ai/docs/migrate-v1`). Mira la versión instalada (`opencode --version`) antes de
+escribir `<AJUSTES>`.
+
 ## Detección
 
 Lo que sepas de ti mismo, o `opencode` en el árbol de procesos de tu shell. Variables propias: sin
@@ -42,11 +47,16 @@ instalación del kit para Claude Code, decide en la Fase 0 con el usuario:
 | Subagentes | sí | `.md` con frontmatter `description`, `mode: subagent`, `model`, `permissions` |
 | Skills | sí | Carpeta con `SKILL.md` (`name`, `description`) |
 | Hooks que bloquean | parcial | Reglas de `permissions` en `<AJUSTES>` (`allow`/`ask`/`deny` por herramienta y patrón) o un plugin que deniega en la evaluación de permisos. Sirve para la red de seguridad de M1 si la lista se expresa como reglas `deny` |
-| Línea de estado | no | Solo un pie configurable; plan B |
-| Compactado | sí | `compaction` en `<AJUSTES>` (`auto`, tokens a conservar, margen) |
+| Línea de estado | sin verificar | La documentación de plugins (`https://opencode.ai/docs/plugins/`) admite plugins solo de la TUI; un usuario informa de un pie de estado por «slots» de plugin en v2, pero no está verificado en la documentación. Si no se puede comprobar en la máquina, plan B |
+| Compactado | sí | Verificado en `https://opencode.ai/docs/compaction/`: `compaction.auto` (por defecto `true`), `compaction.background` (`true`), `compaction.keep.tokens` (tokens recientes que se conservan, 15000) y `compaction.buffer` (parte de la ventana que queda libre; por defecto `"15%"`, mínimo ~16k; cuanto mayor, antes compacta). No hay umbral absoluto: aplica el equivalente de la Fase 5 (`buffer` = ventana − 150 000) |
 | Modelo por nivel | sí | `"model": "proveedor/modelo"` global y por agente. Los niveles los elige el usuario según su proveedor (también modelos locales: Ollama, LM Studio, vLLM) |
 | No interactivo trazable | parcial | `opencode run` existe; salida estructurada sin confirmar. Si no la hay, verificación manual |
 | Canal de permisos | sin confirmar | M4 no se ofrece mientras no se compruebe |
+
+## Perfil `terminal` (Termux, SSH)
+
+opencode funciona en Termux (informado con v2.0.31). Sin escritorio: no se ofrecen M4 ni M7, y los
+paquetes se instalan con `pkg`. Lo que la plantilla marca para otros perfiles se quita en la Fase 3.
 
 ## Órdenes de verificación
 

@@ -1,5 +1,7 @@
 # M6 — Permisos ampliados (equipos de reparación)
 
+Para: todos los perfiles.
+
 Solo si el usuario lo elige. **Nunca se recomienda** para el equipo de uso diario.
 Necesita: permisos configurables en `<AJUSTES>` (para los modos `asistente` y `bypass`; el modo
 `sudo` no depende del programa).

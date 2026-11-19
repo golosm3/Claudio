@@ -42,7 +42,7 @@ flowchart TD
 ## Install
 
 1. Download the [latest release](https://github.com/golosw/Claudio/releases/latest) (*Source code*) and
-   unzip it, or `git clone --branch v3.2 https://github.com/golosw/Claudio`.
+   unzip it, or `git clone --branch v3.3 https://github.com/golosw/Claudio`.
 2. Open your terminal assistant in that folder and type:
 
    > Read `promptinicial.md` and follow it.
